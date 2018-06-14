@@ -52,7 +52,7 @@ Now the machine is setup and ready for application deployment. The application w
 
 ```
     git clone https://github.com/rea-cruitment/simple-sinatra-app.git
-    cd ~/Dev/simple-sinatra-app
+    cd simple-sinatra-app
 ```
 
 5. Add new git remote. This destination was setup with Ansible above. Authentication is possible because of the `deploy_key` variable, added in `site.yml` playbook
