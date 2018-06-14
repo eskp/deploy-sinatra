@@ -1,4 +1,4 @@
-# Provision a Vagrant box and deploy a Sinatra application with Git post-receive hook
+# Provision a Vagrant box and deploy Sinatra application with Git post-receive hook
 
 ### Goals
 
