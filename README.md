@@ -42,22 +42,30 @@ If not please see:
 
 3. Bring Vagrant machine up, configured in `Vagrantfile`:
 
+```
     vagrant up
+```
 
 Now the machine is setup and ready for application deployment. The application will be deployed by utilising git post-receive hook, deployed with Ansible in the step above.
 
 4. To deploy simple-sinatra-app code changes from the local filesystem to the dev machine, clone and go into the repository directory:
 
+```
     git clone https://github.com/rea-cruitment/simple-sinatra-app.git
     cd ~/Dev/simple-sinatra-app
+```
 
 5. Add new git remote. This destination was setup with Ansible above. Authentication is possible because of the `deploy_key` variable, added in `site.yml` playbook
 
+```
     git remote add dev ssh://deploy@localhost:2222/home/deploy/sinatra.git
+```
 
 6. Deploy to the development machine
 
+```
     git push dev master
+```
 
 Note: when the Vagrant host is destroyed and re-created, there will be SSH fingerprint warning. In that case remove the corresponding line from `~/.ssh/known_hosts`
 
