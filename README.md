@@ -26,7 +26,7 @@ Serves as documentation which validates the systems and inverse is also true - s
 * Add regular server backups and notification via email
 
 
-### Start here to Deploy Sinatra Application
+## Start here to Deploy Sinatra Application
 
 Assume Ansible, VirtualBox and Vagrant are installed on the developer's OSX machine.
 
