@@ -1,0 +1,24 @@
+---
+
+- name: Add deploy user
+  user:
+    name: "{{ deploy_user }}"
+    shell: /bin/bash
+
+
+- name: Create user SSH directory
+  file:
+    path: "/home/{{ deploy_user }}/.ssh/"
+    state: directory
+    mode: 0700
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+
+
+- name: Add public key for authentication
+  copy:
+    content: "{{ deploy_key }}"
+    dest: "/home/{{ deploy_user }}/.ssh/authorized_keys"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: 0600

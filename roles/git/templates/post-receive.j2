@@ -1,0 +1,3 @@
+#!/bin/sh
+GIT_WORK_TREE=/srv/{{ app_name }} git checkout -f
+passenger-config restart-app --name '/srv/{{ app_name }} (production)'

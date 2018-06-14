@@ -1,0 +1,9 @@
+server {
+    listen 80 default_server;
+
+    # Turn on Passenger
+    passenger_enabled on;
+    passenger_ruby /usr/bin/ruby;
+
+    root /srv/{{ app_name }}/public;
+}

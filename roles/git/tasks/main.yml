@@ -1,0 +1,48 @@
+- name: Install git package
+  apt:
+    state: installed
+    pkg: git
+    force: yes
+
+
+- name: Create repo directory
+  file:
+    path: "/home/{{ deploy_user }}/{{ app_name }}.git"
+    state: directory
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+
+
+- name: Create git bare repository
+  shell: /usr/bin/git init --bare
+  args:
+    chdir: "/home/{{ deploy_user }}/{{ app_name }}.git"
+    creates: config
+
+
+- name: Adjust git repository permissions
+  file:
+    path: "/home/{{ deploy_user }}/{{ app_name }}.git"
+    recurse: yes
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+
+
+- name: Create checkout directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+  with_items:
+    - /srv/{{ app_name }}
+    - /srv/{{ app_name }}/public
+
+
+- name: Create post-receive hook
+  template:
+    src: post-receive.j2
+    dest: "/home/{{ deploy_user }}/{{ app_name }}.git/hooks/post-receive"
+    mode: 0755
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"

@@ -1,0 +1,32 @@
+- name: Install firewall package
+  apt:
+    state: installed
+    pkg: ufw
+
+
+- name: Allow SSH traffic
+  ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+
+
+- name: Allow http traffic
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+
+- name: Allow https traffic
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+
+
+- name: Set ufw firewall policy
+  ufw:
+    state: enabled
+    direction: incoming
+    policy: deny

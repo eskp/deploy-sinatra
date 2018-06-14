@@ -1,0 +1,16 @@
+
+- name: Install Sinatra library
+  shell: gem install --no-rdoc --no-ri sinatra
+  changed_when: false
+
+
+# The following (better way) didn't seem to install the package
+#  gem:
+#    name: sinatra
+#    state: present
+#    user_install: no
+
+
+- name: Install bundler
+  package:
+    name: ruby-bundler

@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  remote_user: root
+  vars:
+    app_name: sinatra
+    deploy_user: deploy
+    deploy_key:
+  roles:
+    - firewall
+    - users
+    - ssh
+    - nginx-passenger
+    - sinatra
+    - git

@@ -1,0 +1,45 @@
+
+- name: Add Phusion apt key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 561F9B9CAC40B2F7
+    state: present
+    #ignore_errors: true
+
+
+- name: Add Phusion repository
+  apt_repository:
+    repo: "deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main"
+    state: present
+    update_cache: yes
+
+
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nginx-extras
+    - passenger
+
+
+- name: Include Passenger config in nginx
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    regexp: "passenger.conf;$"
+    line: "include /etc/nginx/passenger.conf;"
+    state: present
+  notify: restart nginx
+
+
+- name: Default virtual host is absent
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
+
+
+- name: Virtual host is present
+  template:
+    src: "passenger.j2"
+    dest: "/etc/nginx/sites-enabled/{{ app_name }}.conf"
+  notify: restart nginx
